@@ -29,15 +29,17 @@ public:
 
 int main()
 {
-
-        int  n, target;
-        Solution ob;
-        cin >> n >> target;
-        vector<int> arr(n);       
-        for(int i = 0; i < n; ++i)
-        {
-            cin >> arr[i];
-        }
-        cout << ob.minSubArrayLen(target, arr);
-                
+        int tc;
+        cin >> tc;
+        while (tc--) {
+            int  n, target;
+            Solution ob;
+            cin >> n >> target;
+            vector<int> arr(n);       
+            for(int i = 0; i < n; ++i)
+            {
+                cin >> arr[i];
+            }
+            cout << ob.minSubArrayLen(target, arr);
+        }         
 }
