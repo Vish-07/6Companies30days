@@ -8,15 +8,7 @@ class Solution
     //when order does not matter.
     long long countWays(int m)
     {
-        vector<long long> dp(m + 1, 0);
-        dp[0] = dp[1] = 1;
-        
-        for(int i = 2; i <= m; ++i)
-        {
-            dp[i] = dp[i - 2] + 1;
-        }
-        
-        return dp[m];
+        return (1 + (m / 2));
     }
 };
 
