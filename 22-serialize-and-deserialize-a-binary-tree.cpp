@@ -92,36 +92,77 @@ struct Node
 class Solution
 {
     public:
-    void helper(Node* root, vector<int>& ans)
-    {
-        if(root == NULL)
-            return;
-        
-        helper(root->left, ans);
-        ans.push_back(root->data);
-        helper(root->right, ans);
-        
-    }
     //Function to serialize a tree and return a list containing nodes of tree.
     vector<int> serialize(Node *root) 
     {
+        queue<Node*> q;
         vector<int> ans;
-        helper(root, ans);
+        Node* temp = root;
+        q.push(root);
+        ans.push_back(root->data);
+        while(!q.empty())
+        {
+            temp = q.front();
+            if(temp->left)
+            {
+                q.push(temp->left);
+                ans.push_back(temp->left->data);
+            }
+            else
+            {
+                ans.push_back(-1);
+            }
+                
+            if(temp->right)
+            {
+                q.push(temp->right);
+                ans.push_back(temp->right->data);
+            }
+            else
+            {
+                ans.push_back(-1);
+            }
+            
+            q.pop();
+        }
+        
         return ans;
     }
     
     //Function to deserialize a list and construct the tree.
     Node * deSerialize(vector<int> &A)
     {
-       Node* root = new Node(-1);
+        // for(auto i : A)
+        // {
+        //     cout << i << " ";
+        // }
+        // cout << endl;
+       Node* root = new Node(A[0]);
        Node* temp = root;
-       
-       for(int i = 0; i < A.size(); ++i)
+       queue<Node*> q;
+       q.push(root);
+       int i = 1;
+       while(i < A.size())
        {
-           temp->right = new Node(A[i]);
-           temp = temp->right;
+           temp = q.front();
+           if(A[i] != -1)
+           {
+               Node* curr = new Node(A[i]);
+               temp->left = curr;
+               q.push(curr);
+           }
+           i++;
+           if(A[i] != -1)
+           {
+               Node* curr = new Node(A[i]);
+               temp->right = curr;
+               q.push(curr);
+           }
+           i++;
+           q.pop();
+           
        }
-       return root->right;
+       return root;
     }
 
 };
